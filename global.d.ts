@@ -76,5 +76,5 @@ type SectionModule<TProps = unknown> = {
   schema: SchemaTypeDefinition;          
   query: string;                         
   Component: ComponentType<TProps>;
-  usableIn: ReadonlyArray<"home" | "page">; 
+  usableIn: ReadonlyArray<"home" | "page" | "service">; 
 };

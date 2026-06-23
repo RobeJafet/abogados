@@ -1,15 +1,17 @@
 import { groq } from "next-sanity";
-import { LINK, IMG } from "@/sanity/utils/query";
+import { IMG } from "@/sanity/utils/query";
+
 export const query = groq`
-    _type == "homeHero" => {
+    _type == "heroServices" => {
         _type,
         _key,
         title,
+        subtitle,
         description,
-        cta {
-            ${LINK}
-        },
         backgroundImage {
+            ${IMG}
+        },
+        mobileImage {
             ${IMG}
         },
     }

@@ -14,12 +14,12 @@ export default async function FrontendLayout({
 }>) {
     const { isEnabled: isDraftMode } = await draftMode();
     const settings = await fetchSettings();
-    console.log(settings);
+    console.log("SETTTING", settings);
     return (
         <>
-            <Header links={settings.headerNavigation} mail={settings.mail} />
+            <Header links={settings.headerNavigation} mail={settings.mail} image={settings.headerLogo} />
             {children}
-            <Footer address={settings.footerAddress} phone={settings.footerPhone} mail={settings.footerEmail} links={settings.footerSitemap} />
+            <Footer address={settings.footerAddress} phone={settings.footerPhone} mail={settings.footerEmail} links={settings.footerSitemap} image={settings.footerImage} socialLinks={settings.footerSocial} />
             <Toaster />
             {isDraftMode && (
                 <>

@@ -1,7 +1,7 @@
 import { defineField } from "sanity";
 import { SECTIONS, sectionsForDocument } from "@/sections/registry";
 
-export type DocumentWithSections = "home" | "page";
+export type DocumentWithSections = "home" | "page" | "service";
 
 export const sectionSchemas = SECTIONS.map((s) => s.schema);
 

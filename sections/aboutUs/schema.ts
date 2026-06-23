@@ -1,14 +1,21 @@
 import { defineField, defineType } from "sanity";
 
 export default defineType({
-    name: 'homeHero',
-    title: 'Home Hero',
+    name: 'aboutUs',
+    title: 'About Us',
     type: 'object',
     fields: [
+        defineField({
+            name: 'subtitle',
+            title: 'Subtitle',
+            type: 'string',
+            validation: Rule => Rule.required(),
+        }),
         defineField({
             name: 'title',
             title: 'Title',
             type: 'string',
+            validation: Rule => Rule.required(),
         }),
         defineField({
             name: 'description',
@@ -16,19 +23,31 @@ export default defineType({
             type: 'text',
         }),
         defineField({
-            name: 'cta',
-            title: 'CTA',
-            type: 'link',
+            name: 'image',
+            title: 'Image',
+            type: 'image',
+            options: {
+                hotspot: true,
+            },
+            fields: [
+                defineField({
+                    name: 'alt',
+                    title: 'Alt',
+                    type: 'string',
+                }),
+            ],
         }),
         defineField({
             name: 'backgroundImage',
             title: 'Background Image',
             type: 'image',
-            options: { hotspot: true },
+            options: {
+                hotspot: true,
+            },
             fields: [
                 defineField({
                     name: 'alt',
-                    title: 'Texto alternativo',
+                    title: 'Alt',
                     type: 'string',
                 }),
             ],
@@ -37,7 +56,7 @@ export default defineType({
     preview: {
         prepare() {
             return {
-                title: "Seccion Home Hero",
+                title: "Seccion About Us",
             }
         }
     }

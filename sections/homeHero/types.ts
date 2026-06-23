@@ -4,4 +4,5 @@ export type HomeHeroSection = {
     title: string;
     description: string;
     cta: Link;
+    backgroundImage: Image;
 };

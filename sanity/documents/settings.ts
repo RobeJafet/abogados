@@ -48,6 +48,12 @@ export default defineType({
             fieldset: 'header',
         }),
         defineField({
+            name: 'headerLogo',
+            title: 'Header Image',
+            type: 'image',
+            fieldset: 'header',
+        }),
+        defineField({
             name: 'footerSitemap',
             title: 'Footer Sitemap',
             type: 'array',
@@ -101,6 +107,12 @@ export default defineType({
             type: 'string',
             fieldset: 'footer',
             validation: (Rule) => Rule.email().error('Please enter a valid email address.'),
+        }),
+        defineField({
+            name: 'footerImage',
+            title: 'Footer Image',
+            type: 'image',
+            fieldset: 'footer',
         }),
     ],
 });
