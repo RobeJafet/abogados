@@ -8,6 +8,9 @@ type Settings = {
     footerAddress: Link;
     footerPhone: string;
     footerEmail: string;
+    footerImage: Image;
+    footerSocial: Link[];
+    headerLogo: Image;
 }
 
 export const fetchSettings = async (): Promise<Settings> => {
