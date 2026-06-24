@@ -6,6 +6,7 @@ import DisableDraftMode from "@/components/DisableDraftMode";
 import { fetchSettings } from "@/sanity/services/fetchSettings";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import {PageTransitionHandler} from "@/components/PageTransitionHandler";
 
 export default async function FrontendLayout({
     children,
@@ -14,13 +15,13 @@ export default async function FrontendLayout({
 }>) {
     const { isEnabled: isDraftMode } = await draftMode();
     const settings = await fetchSettings();
-    console.log("SETTTING", settings);
     return (
         <>
             <Header links={settings.headerNavigation} mail={settings.mail} image={settings.headerLogo} />
             {children}
             <Footer address={settings.footerAddress} phone={settings.footerPhone} mail={settings.footerEmail} links={settings.footerSitemap} image={settings.footerImage} socialLinks={settings.footerSocial} />
             <Toaster />
+            <PageTransitionHandler />
             {isDraftMode && (
                 <>
                     <DisableDraftMode />

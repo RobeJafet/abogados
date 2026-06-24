@@ -2,7 +2,7 @@ import { InfoServiceSection } from './types';
 
 export default function InfoService(section: InfoServiceSection) {
     return (
-        <section className="info-service-section pt-blue">
+        <section  className="info-service-section pt-blue">
             <div className="container-fluid">
                 <div className="row justify-center lg:justify-between align-baseline">
                     <div className="w-full md:w-10/12 lg:w-5/12 lg:sticky top-[140px] lg:text-left text-center">

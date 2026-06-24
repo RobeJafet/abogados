@@ -2,7 +2,7 @@ import { groq } from "next-sanity";
 import { LINK, IMG } from "@/sanity/utils/query";
 
 export const SETTINGS = groq`
-*[_type == "settings"][0] {
+*[_id == "settings"][0] {
   mail,
   headerNavigation[] {
     ${LINK},

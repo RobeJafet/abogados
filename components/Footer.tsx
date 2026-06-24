@@ -2,22 +2,37 @@ import LinkComponent from "./LinkComponent";
 import ImageComponent from "./ImageComponent";
 
 export default function Footer({ address, phone, mail, links, image, socialLinks }: { address: Link, phone: string, mail: string, links: Link[], image: Image, socialLinks: Link[] }) {
-    console.log("socialLinks", socialLinks);
+
+    console.log("phone", phone);
     return (
         <footer className="mt-blue">
             <div className="bg-black relative">
                 <div className="container-fluid text-white">
                     <div className="row md:relative">
-                        <div className="w-full md:w-5/12 lg:w-3/12 pt-red pb-red">
-                            <div className="md:px-6 lg:px-0 md:text-left text-center flex flex-col">
+                        <div className="w-full md:w-5/12 lg:w-6/12 pt-red pb-red">
+                            <div className="md:px-6 lg:px-0 md:text-left text-center flex flex-col lg:w-1/2">
                                 <p className="link">CONTACTO</p>
-                                <p className="md:pt-[15px] pt-[10px]">
+                                <div className="md:pt-[15px] pt-[10px] flex flex-col ">
                                     {address && (
                                         <LinkComponent {...address}>
                                             {address.label}
                                         </LinkComponent>
                                     )}
-                                </p>
+                                    {
+                                        phone && (
+                                            <a href={`tel:${phone.replace(/[\s+]/g, "")}`} className="text-white">
+                                                Tel: {phone}
+                                            </a>
+                                        )
+                                    }
+                                    {
+                                        mail && (
+                                            <a href={`mailto:${mail}`} className="text-white">
+                                                {mail}
+                                            </a>
+                                        )
+                                    }
+                                </div>
                                 <div className="hidden md:flex pt-blue">
                                     <LinkComponent
                                         page={{ _type: "home", slug: "" }}
@@ -30,7 +45,7 @@ export default function Footer({ address, phone, mail, links, image, socialLinks
                             </div>
                             <div className="border-b md:border-b-0 border-white/50 absolute left-0 right-0 mt-12"/>
                         </div>
-                        <div className="w-6/12 md:w-4/12 lg:border-l bml-auto pt-red pb-red border-r border-white/50 md:border-r-0">
+                        <div className="w-6/12 md:w-4/12 lg:w-3/12 lg:border-l bml-auto pt-red pb-red border-r border-white/50 md:border-r-0">
                             <div className="md:border-l lg:border-l-0 h-full top-0 border-white/50 absolute"></div>
                             <div className="lg:px-6 md:px-12 px-0 md:text-left text-center">
                                 <p className="link">SITEMAP</p>

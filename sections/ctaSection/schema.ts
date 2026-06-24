@@ -43,6 +43,11 @@ export default defineType({
                 ],
             }],
         }),
+        defineField({
+            name: 'ctaContact',
+            title: 'CTA Contact',
+            type: 'link',
+        }),
     ],
     preview: {
         prepare() {

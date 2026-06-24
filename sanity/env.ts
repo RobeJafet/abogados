@@ -1,5 +1,5 @@
 export const apiVersion =
-  process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2026-05-30'
+  process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2025-09-20'
 
 export const dataset = assertValue(
   process.env.NEXT_PUBLIC_SANITY_DATASET,
@@ -10,6 +10,8 @@ export const projectId = assertValue(
   process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   'Missing environment variable: NEXT_PUBLIC_SANITY_PROJECT_ID'
 )
+
+export const studioUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000" + "/studio";
 
 export const isLive = process.env.NEXT_PUBLIC_IS_LIVE || "development";
 

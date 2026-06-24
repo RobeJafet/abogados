@@ -38,12 +38,10 @@ export default function LinkComponent({
         if (linkType === "page" && page) {
             if (page._type === "page") {
                 setLinkPath(`/${page.slug}`);
-            } else if (page._type === "project") {
-                setLinkPath(`/project/${page.slug}`);
+            } else if (page._type === "service") {
+                setLinkPath(`/servicios/${page.slug}`);
             } else if (page._type === "home") {
                 setLinkPath(`/`);
-            } else if (page._type === "service"){
-                setLinkPath(`/carpeta/${page.slug}`);
             }
         }
     }, [pathname, linkType, page]);
@@ -77,11 +75,37 @@ export default function LinkComponent({
         e.preventDefault();
 
         // PAGE TRANSITION FUNCTION
-        // pageTransition(hrefString);
+        pageTransition(hrefString);
        
     };
 
-    if (linkType === "href") {
+    const handleAnchorClick = async (
+        e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+        anchor: string
+    ) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) {
+            return;
+        }
+
+        e.preventDefault();
+
+        if (onClickAction) {
+            onClickAction(e);
+        }
+
+        const id = anchor.split("#")[1];
+
+        if (pathname === "/") {
+            document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+            return;
+        }
+
+        // Navigate home with the hash so the page transition runs and
+        // the target section is scrolled into view after landing.
+        pageTransition(anchor);
+    };
+
+    if (linkType === "href" && !href?.includes("#")) {
         return (
             <a
                 href={href}
@@ -91,6 +115,19 @@ export default function LinkComponent({
             >
                 {children}
             </a>
+        ); 
+    } else if (linkType === "href" && href?.includes("#")) {
+        const anchor = `/#${href.split("#")[1]}`;
+        return (
+            <Link
+                href={anchor}
+                className={`${className}`}
+                onClick={(e) => handleAnchorClick(e, anchor)}
+                target={inNewTab ? "_blank" : "_self"}
+                rel={inNewTab ? "noopener noreferrer" : undefined}
+            >
+                {children}
+            </Link>
         );
     } else if (linkType === "page") {
         return (

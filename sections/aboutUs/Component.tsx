@@ -3,7 +3,7 @@ import ImageComponent from '@/components/ImageComponent';
 
 export default function AboutUs(section: AboutUsSection) {
     return (
-        <section className="about-us pt-blue">
+        <section className="about-us pt-blue" id="nosotros">
             <div className="container-fluid">
                 <div className="row justify-center">
                     <div className="w-full md:w-10/12 lg:w-full">

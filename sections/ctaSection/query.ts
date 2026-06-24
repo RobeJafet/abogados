@@ -5,6 +5,9 @@ export const query = groq`
     _type == "ctaSection" => {
         _type,
         _key,
+        ctaContact {
+            ${LINK}
+        },
         items[] {
             _key,
             cta {

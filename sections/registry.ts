@@ -7,6 +7,7 @@ import { heroServicesModule } from './heroServices/index';
 import { infoServiceSectionModule } from './infoServiceSection';
 import { practicaSectionModule } from './practicaSection';
 import { ctaSectionModule } from './ctaSection/index';
+import { teamModule } from './team/index';
 
 export const SECTIONS = [
     homeHeroModule,
@@ -18,6 +19,7 @@ export const SECTIONS = [
     infoServiceSectionModule,
     practicaSectionModule,
     ctaSectionModule,
+    teamModule,
 ] as const;
 
 export type SectionName = (typeof SECTIONS)[number]["name"];

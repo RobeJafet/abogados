@@ -114,5 +114,13 @@ export default defineType({
             type: 'image',
             fieldset: 'footer',
         }),
+        
     ],
+    preview: {
+        prepare() {
+            return {
+                title: `Settings`,
+            };
+        },
+    },
 });

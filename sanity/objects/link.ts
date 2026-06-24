@@ -26,7 +26,6 @@ export default defineType({
       title: "Label",
       type: "string",
       hidden: ({ parent }) => parent?.linkType !== 'href' && parent?.linkType !== 'page',
-
     }),
     defineField({
       name: 'href',
@@ -46,7 +45,6 @@ export default defineType({
               ? true
               : 'Anchor links must look like #section-id'
           }
-
           return true
         }).uri({
           scheme: ['http', 'https', 'mailto', 'tel'],
@@ -57,7 +55,7 @@ export default defineType({
       name: 'page',
       title: 'Page',
       type: 'reference' as const,
-      to: [{type: 'home'}],
+      to: [{type: 'home'}, {type: 'service'}],
       options: {
         disableNew: true,
       },

@@ -8,7 +8,7 @@ export default function ApproachSectionComponent(section: ApproachSection) {
     const [openKey, setOpenKey] = useState<string | null>(section.accordion[0]?._key ?? null);
 
     return (
-        <section className="approach-section pt-blue">
+        <section className="approach-section pt-blue" id="enfoque">
             <div className="container-fluid">
                 <div className="row justify-center">
                     <div className="w-full md:w-10/12 lg:w-7/12 lg:pt-0! pt-red order-2 lg:order-1">

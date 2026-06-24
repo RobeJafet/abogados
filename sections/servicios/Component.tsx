@@ -4,7 +4,7 @@ import LinkComponent from '@/components/LinkComponent';
 
 export default function Servicios(section: ServiciosSection) {
     return (
-        <section className="pt-blue">
+        <section id="servicios" className="pt-blue">
             <div className="container-fluid">
                 <div className="row justify-center">
                     <div className="w-full md:w-10/12 lg:w-6/12 text-center">

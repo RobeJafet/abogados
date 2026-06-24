@@ -9,6 +9,7 @@ type Home = {
     description: string;
     cta: Link;
     sections: Section[];
+    metadata: SeoMetadata;
 };
 
 export const fetchHome = async (): Promise<Home> => {

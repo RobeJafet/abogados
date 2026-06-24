@@ -22,3 +22,7 @@ export const SERVICE_BY_SLUG = groq`
     ${serviceSectionProjections}
   }
 }`;
+
+export const SERVICES_SLUGS = groq`
+*[_type == "service"].slug.current
+`;
