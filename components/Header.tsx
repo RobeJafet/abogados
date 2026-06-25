@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import ImageComponent from "./ImageComponent";
 import LinkComponent from "./LinkComponent";
+import AnimateOnView from './AnimateOnView';
 
 export default function Header({ links, mail, image }: { links: Link[], mail: string, image: Image }) {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -24,7 +25,7 @@ export default function Header({ links, mail, image }: { links: Link[], mail: st
     return (
         <>
             <header className="fixed top-12 left-0 w-full z-50">
-                <div className="container-fluid pointer-events-none">
+                <AnimateOnView className="container-fluid pointer-events-none">
                     <div className="flex justify-between items-center pointer-events-auto">
                         <LinkComponent
                             page={{ _type: "home", slug: "" }}
@@ -87,7 +88,7 @@ export default function Header({ links, mail, image }: { links: Link[], mail: st
                         )}
                     </div>
 
-                </div>
+                </AnimateOnView>
 
 
             </header>

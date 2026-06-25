@@ -3,18 +3,19 @@
 import { useState } from 'react';
 import ImageComponent from '@/components/ImageComponent';
 import { ApproachSection } from './type';
+import AnimateOnView from '@/components/AnimateOnView';
 
 export default function ApproachSectionComponent(section: ApproachSection) {
     const [openKey, setOpenKey] = useState<string | null>(section.accordion[0]?._key ?? null);
 
     return (
         <section className="approach-section pt-blue" id="enfoque">
-            <div className="container-fluid">
+            <AnimateOnView className="container-fluid">
                 <div className="row justify-center">
-                    <div className="w-full md:w-10/12 lg:w-7/12 lg:pt-0! pt-red order-2 lg:order-1">
+                    <div className="w-full md:w-10/12 lg:w-7/12 lg:pt-0! pt-red order-2 lg:order-1 animate">
                         <ImageComponent image={section.image} optionalAlt="Approach Section Image" classContainer="w-full h-full object-cover" classImg="w-full h-full object-cover rounded-[15px] md:rounded-[25px]" />
                     </div>
-                    <div className="w-full md:w-10/12 lg:w-5/12 order-1 lg:order-2">
+                    <div className="w-full md:w-10/12 lg:w-5/12 order-1 lg:order-2 animate">
                         <div className="flex flex-col justify-between h-full">
                             <div>
                                 <p className="link text-blue lg:text-left text-center">{section.subtitle}</p>
@@ -48,7 +49,7 @@ export default function ApproachSectionComponent(section: ApproachSection) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </AnimateOnView>
         </section>
     );
 }

@@ -1,15 +1,16 @@
 import { AboutUsSection } from './types';
 import ImageComponent from '@/components/ImageComponent';
+import AnimateOnView from '@/components/AnimateOnView';
 
 export default function AboutUs(section: AboutUsSection) {
     return (
         <section className="about-us pt-blue" id="nosotros">
             <div className="container-fluid">
                 <div className="row justify-center">
-                    <div className="w-full md:w-10/12 lg:w-full">
+                    <AnimateOnView className="w-full md:w-10/12 lg:w-full">
                         <div className="grid grid-cols-1 lg:grid-cols-2">
                             <div className="col-span-1 relative h-full p-md-[40px] p-[30px]">
-                                <div className='relative z-10 text-white h-full flex flex-col justify-between'>
+                                <div className='relative z-10 text-white h-full flex flex-col justify-between animate'>
                                     <div className='lg:text-left text-center'>
                                         <p className="link pb-[5px]">{section.subtitle}</p>
                                         <h2 className="h1">{section.title}</h2>
@@ -27,7 +28,7 @@ export default function AboutUs(section: AboutUsSection) {
                                 <ImageComponent image={section.image} optionalAlt="About Us Image" classContainer="w-full h-full object-cover rounded-b-[25px] lg:rounded-none lg:rounded-r-[25px] overflow-hidden" classImg="w-full h-full object-cover"/>
                             </div>
                         </div>
-                    </div>
+                    </AnimateOnView>
                 </div>
             </div>
         </section>

@@ -7,7 +7,6 @@ export function PageTransitionHandler() {
   const pathname = usePathname();
 
   useEffect(() => {
-    console.log("pathname", pathname);
     const overlay = document.getElementById('page-loader');
     const body = document.body;
     const header = document.querySelector('header');

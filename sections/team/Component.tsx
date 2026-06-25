@@ -3,10 +3,11 @@
 import { TeamSection } from "./types";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperCore } from 'swiper/types';
-import { Navigation } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules';
 import ImageComponent from "@/components/ImageComponent";
 import 'swiper/css';
 import { useEffect, useRef, useState } from "react";
+import AnimateOnView from '@/components/AnimateOnView';
 
 function debounce<F extends (...args: any[]) => any>(func: F, waitFor: number) {
     let timeout: ReturnType<typeof setTimeout> | null = null;
@@ -22,6 +23,7 @@ function debounce<F extends (...args: any[]) => any>(func: F, waitFor: number) {
 }
 
 export default function Equipo(section: TeamSection) {
+    const sectionRef = useRef<HTMLElement>(null);
     const nextRef = useRef<HTMLDivElement>(null);
     const prevRef = useRef<HTMLDivElement>(null);
     const swiperRef = useRef<SwiperCore | null>(null);
@@ -77,6 +79,29 @@ export default function Equipo(section: TeamSection) {
         }
     }, [sliderValues]);
 
+    useEffect(() => {
+        const sectionEl = sectionRef.current;
+        if (!sectionEl) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    swiperRef.current?.autoplay?.start();
+                } else {
+                    swiperRef.current?.autoplay?.stop();
+                }
+            },
+            { threshold: 0.4 }
+        );
+
+        observer.observe(sectionEl);
+
+        return () => {
+            observer.disconnect();
+            swiperRef.current?.autoplay?.stop();
+        };
+    }, []);
+
     const setChildrenTransition = (swiper: SwiperCore, speed: number) => {
         if (!swiper?.slides) return;
         const tf = 'cubic-bezier(0.19, 1, 0.22, 1)';
@@ -125,10 +150,10 @@ export default function Equipo(section: TeamSection) {
     };
 
     return (
-        <section id="equipo" className="pt-blue">
-            <div className="container-fluid p-lat">
+        <section id="equipo" className="pt-blue" ref={sectionRef}>
+            <AnimateOnView className="container-fluid p-lat">
                 <div className="row justify-center">
-                    <div className="w-full md:w-10/12 lg:w-6/12 text-center">
+                    <div className="w-full md:w-10/12 lg:w-6/12 text-center animate">
                     {section.headline && (
                         <p className="link text-blue">{section.headline}</p>
                     )}
@@ -136,16 +161,18 @@ export default function Equipo(section: TeamSection) {
                         <h2 className="h1 pt-2">{section.title}</h2>
                     )}
                     </div>
-                    <div className="w-full lg:w-10/12 pt-red">
+                    <div className="w-full lg:w-10/12 pt-red animate">
                         <div className="pt-red border border-gray pt-red pb-red">
                             <Swiper
-                                modules={[Navigation]}
-                                
+                                modules={[Navigation, Autoplay]}
                                 speed={800}
-                               
                                 centeredSlides={true}
                                 watchSlidesProgress
                                 loop={true}
+                                autoplay={{
+                                    delay: 1800,
+                                    disableOnInteraction: true,
+                                }}
                                 navigation={{
                                     nextEl: nextRef.current!,
                                     prevEl: prevRef.current!,
@@ -210,7 +237,7 @@ export default function Equipo(section: TeamSection) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </AnimateOnView>
         </section>
     )
 }

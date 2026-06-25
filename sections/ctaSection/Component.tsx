@@ -3,14 +3,15 @@ import Image from 'next/image';
 import ImageComponent from '@/components/ImageComponent';
 import imgContact from '@/public/contact.png';
 import LinkComponent from '@/components/LinkComponent';
+import AnimateOnView from '@/components/AnimateOnView';
 
 export default function CTASection(section: CTASectionType) {
     return (
         <section className="cta-section">
-            <div className="container-fluid pt-blue">
+            <AnimateOnView className="container-fluid pt-blue">
                 <div className="row justify-center lg:justify-start gap-y-[15px]  md:gap-y-[30px]">
                     {section.items.map((item) => (
-                        <div  key={item._key} className='w-1/2 md:w-5/12 lg:w-1/3 '>
+                        <div  key={item._key} className='w-1/2 md:w-5/12 lg:w-1/3 animate'>
                             <LinkComponent {...item.cta} className="p-[10px] md:p-[15px] lg:p-[20px] border border-gray rounded-[20px] flex flex-col lg:flex-row gap-[15px] items-start relative h-full">
                                 {item.image && (
                                     <ImageComponent 
@@ -33,7 +34,7 @@ export default function CTASection(section: CTASectionType) {
                             </LinkComponent>
                         </div>
                     ))}
-                    <div className="w-full md:w-10/12 lg:w-1/3">
+                    <div className="w-full md:w-10/12 lg:w-1/3 animate">
                         <LinkComponent {...section.ctaContact} className="relative rounded-[20px] overflow-hidden h-full p-[15px] lg:p-[20px] block">
                             <div className="absolute left-0 top-0 w-full h-full">
                                 <Image src={imgContact} alt="Contact" width={345} height={160} className="w-full h-full object-cover" sizes="(max-width: 993px) 50vw, 33vw" />
@@ -55,7 +56,7 @@ export default function CTASection(section: CTASectionType) {
                       
                     </div>
                 </div>
-            </div>
+            </AnimateOnView>
         </section>
     );
 }

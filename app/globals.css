@@ -234,3 +234,28 @@ body.loading{
     transform: scaleX(0);
   }
 }
+
+.animate {
+  opacity: 0;
+}
+
+.animate.in-view {
+  animation: fadeIn 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+.animate-container{
+  opacity: 0;
+}
+.animate-container.in-view{
+  animation: fadeIn 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+
+@keyframes fadeIn{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

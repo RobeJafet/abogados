@@ -1,20 +1,21 @@
 import { ServiciosSection } from './types';
 import ImageComponent from '@/components/ImageComponent';
 import LinkComponent from '@/components/LinkComponent';
+import AnimateOnView from '@/components/AnimateOnView';
 
 export default function Servicios(section: ServiciosSection) {
     return (
         <section id="servicios" className="pt-blue">
-            <div className="container-fluid">
+            <AnimateOnView className="container-fluid">
                 <div className="row justify-center">
-                    <div className="w-full md:w-10/12 lg:w-6/12 text-center">
+                    <div className="w-full md:w-10/12 lg:w-6/12 text-center animate">
                         <p className="link text-blue">{section.headline}</p>
                         <h2 className="h1 pt-2">{section.title}</h2>
                     </div>
                     <div className="w-full md:w-10/12 pt-red">
                         <div className="border border-gray rounded-[25px] w-full d-flex flex-col lg:grid  lg:grid-cols-3" >
                             {section?.servicios?.map((servicio) => (
-                                <div key={servicio._key} className="p-8 md:p-12 lg:py-16 flex flex-col md:flex-row lg:flex-col items-center lg:border-r border-gray last:border-b-0 last:lg:border-r-0 border-b lg:border-b-0 gap-8 md:gap-12 lg:gap-0">
+                                <div key={servicio._key} className="p-8 md:p-12 lg:py-16 flex flex-col md:flex-row lg:flex-col items-center lg:border-r border-gray last:border-b-0 last:lg:border-r-0 border-b lg:border-b-0 gap-8 md:gap-12 lg:gap-0 animate">
                                     <h3 className="h2 hidden lg:block">{servicio.title}</h3>
                                     <div className="flex lg:pt-24 w-[72.609%] md:w-[35.643%] lg:w-full">
                                         <LinkComponent {...servicio.link} className="w-full">
@@ -40,7 +41,7 @@ export default function Servicios(section: ServiciosSection) {
                     </div>
 
                 </div>
-            </div>
+            </AnimateOnView>
         </section>
     );
 }

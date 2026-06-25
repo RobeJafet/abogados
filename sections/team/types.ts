@@ -1,5 +1,6 @@
 export type TeamSection = {
     _type: "team";
+    _key: string;
     headline: string;
     title: string;
     team: {

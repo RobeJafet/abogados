@@ -16,6 +16,7 @@ function isAboveViewport(element: HTMLElement): boolean {
 export default function AnimateOnView({ children, className }: AnimatedOnViewProps) {
     const animateRef = useRef<HTMLDivElement>(null);
     const [hasAnimated, setHasAnimated] = useState(false);
+    const [hasAnimateChildren, setHasAnimateChildren] = useState(false);
     const hasAnimatedRef = useRef(false);
     const timeOut = 80;
 
@@ -34,6 +35,12 @@ export default function AnimateOnView({ children, className }: AnimatedOnViewPro
         target.classList.remove('in-view', 'animate', 'animate-container');
         markAnimated();
     };
+
+    useEffect(() => {
+        const element = animateRef.current;
+        if (!element) return;
+        setHasAnimateChildren(element.querySelectorAll('.animate').length > 0);
+    }, []);
 
     useEffect(() => {
         if (!disableAnimations) return;
@@ -65,8 +72,6 @@ export default function AnimateOnView({ children, className }: AnimatedOnViewPro
                             target.classList.add('in-view');
                             target.addEventListener('animationend', handleAnimationEnd);
                         } else {
-   
-                            target.classList.remove('animate-container');
                             animatedElements.forEach((el, index) => {
                                 setTimeout(() => {
                                     el.classList.add('in-view');
@@ -88,7 +93,7 @@ export default function AnimateOnView({ children, className }: AnimatedOnViewPro
                 });
             },
             {
-                threshold: 0,
+                threshold: 0.2,
                 rootMargin: "0px 0px -10% 0px",
             }
         );
@@ -106,7 +111,7 @@ export default function AnimateOnView({ children, className }: AnimatedOnViewPro
     return (
         <div
             ref={animateRef}
-            className={`${className ?? ''} ${(hasAnimated || disableAnimations) ? '' : 'animate-container'}`}
+            className={`${className ?? ''} ${(hasAnimated || disableAnimations || hasAnimateChildren) ? '' : 'animate-container'}`}
         >
             {children}
         </div>

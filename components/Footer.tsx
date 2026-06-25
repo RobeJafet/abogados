@@ -2,8 +2,6 @@ import LinkComponent from "./LinkComponent";
 import ImageComponent from "./ImageComponent";
 
 export default function Footer({ address, phone, mail, links, image, socialLinks }: { address: Link, phone: string, mail: string, links: Link[], image: Image, socialLinks: Link[] }) {
-
-    console.log("phone", phone);
     return (
         <footer className="mt-blue">
             <div className="bg-black relative">
