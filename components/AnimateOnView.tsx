@@ -1,10 +1,11 @@
 "use client"
 import { useEffect, useRef, ReactNode, useState } from "react";
+import { useIsPresentationTool } from "next-sanity/hooks";
+import { useIsDraftMode } from "@/components/DraftModeProvider";
 
 type AnimatedOnViewProps = {
   children: ReactNode;
   className?: string;
-  
 };
 
 function isAboveViewport(element: HTMLElement): boolean {
@@ -14,59 +15,75 @@ function isAboveViewport(element: HTMLElement): boolean {
 
 export default function AnimateOnView({ children, className }: AnimatedOnViewProps) {
     const animateRef = useRef<HTMLDivElement>(null);
-    const timeOut = 150;
+    const [hasAnimated, setHasAnimated] = useState(false);
+    const hasAnimatedRef = useRef(false);
+    const timeOut = 80;
 
-     const handleAnimationEnd = (event: Event) => {
+    const isPresentationTool = useIsPresentationTool();
+    const isDraftMode = useIsDraftMode();
+    const disableAnimations = isPresentationTool || isDraftMode;
+
+    const markAnimated = () => {
+        if (hasAnimatedRef.current) return;
+        hasAnimatedRef.current = true;
+        setHasAnimated(true);
+    };
+
+    const handleAnimationEnd = (event: Event) => {
         const target = event.target as HTMLElement;
         target.classList.remove('in-view', 'animate', 'animate-container');
-        return;
-    }
+        markAnimated();
+    };
 
     useEffect(() => {
+        if (!disableAnimations) return;
+
         const element = animateRef.current;
         if (!element) return;
-        const numberOfElements = element.querySelectorAll('.animate').length;
 
-        if (numberOfElements > 0) {
-            element.classList.remove('animate-container');
-        }
-        let timeOutObserver;
-        if (!sessionStorage.getItem("first_visit_cookie_set")) {
-            timeOutObserver = 2000;
-        } else {
-            timeOutObserver = 150;
-        }
-         
+        element.classList.remove('in-view', 'animate', 'animate-container');
+        element.querySelectorAll<HTMLElement>('.animate').forEach((el) => {
+            el.classList.remove('in-view', 'animate');
+        });
+        markAnimated();
+    }, [disableAnimations]);
+
+    useEffect(() => {
+        if (disableAnimations) return;
+        if (hasAnimatedRef.current) return;
+
+        const element = animateRef.current;
+        if (!element) return;
+
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
+                    const target = entry.target as HTMLElement;
                     if (entry.isIntersecting) {
-                        const animatedElements = (entry.target as HTMLElement).querySelectorAll('.animate');
-                        if (animatedElements.length == 0) {
-                            animateRef.current?.classList.add('in-view');
-                            animateRef.current?.addEventListener('animationend', handleAnimationEnd);
-                        } else if (animatedElements.length == 1) {
-                            animatedElements[0].classList.add('in-view');
-                            animatedElements[0].addEventListener('animationend', handleAnimationEnd);
+                        const animatedElements = target.querySelectorAll<HTMLElement>('.animate');
+                        if (animatedElements.length === 0) {
+                            target.classList.add('in-view');
+                            target.addEventListener('animationend', handleAnimationEnd);
                         } else {
-                            animatedElements.forEach(
-                                (el, index) => {
-                                    setTimeout(() => {
-                                        el.classList.add('in-view');
-                                        el.addEventListener('animationend', handleAnimationEnd);
-                                    }, timeOut * index);
-                                }
-                            );
-                        }
-                        observer.unobserve(entry.target);
-                    } else {
-                        if (isAboveViewport(entry.target as HTMLElement)) {
-                            const animatedElements = (entry.target as HTMLElement).querySelectorAll('.animate');
-                            animateRef.current?.classList.remove('in-view', 'animate', 'animate-container');
-                            animatedElements.forEach((el) => {
-                                el.classList.remove('in-view', 'animate');
+   
+                            target.classList.remove('animate-container');
+                            animatedElements.forEach((el, index) => {
+                                setTimeout(() => {
+                                    el.classList.add('in-view');
+                                    el.addEventListener('animationend', handleAnimationEnd);
+                                }, timeOut * index);
                             });
                         }
+                        observer.unobserve(target);
+                    } else if (isAboveViewport(target)) {
+
+                        const animatedElements = target.querySelectorAll<HTMLElement>('.animate');
+                        target.classList.remove('in-view', 'animate', 'animate-container');
+                        animatedElements.forEach((el) => {
+                            el.classList.remove('in-view', 'animate');
+                        });
+                        markAnimated();
+                        observer.unobserve(target);
                     }
                 });
             },
@@ -76,21 +93,21 @@ export default function AnimateOnView({ children, className }: AnimatedOnViewPro
             }
         );
 
-        setTimeout(() => {
+        const observeTimer = setTimeout(() => {
             observer.observe(element);
-        }, timeOutObserver);
+        }, 150);
 
         return () => {
-            if (element) {
-                observer.unobserve(element);
-            }
+            clearTimeout(observeTimer);
+            observer.disconnect();
         };
     }, []);
 
-
-
     return (
-        <div ref={animateRef} className={`${className} animate-container`}>
+        <div
+            ref={animateRef}
+            className={`${className ?? ''} ${(hasAnimated || disableAnimations) ? '' : 'animate-container'}`}
+        >
             {children}
         </div>
     );

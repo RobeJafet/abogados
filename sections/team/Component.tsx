@@ -39,7 +39,7 @@ export default function Equipo(section: TeamSection) {
                 OFF1: 21.22,
                 OFF2: 64.1,
                 OFF3: 110.92,
-                restFrom: 0.4282,
+                restFrom: 0.4,
             });
         } else if (window.innerWidth >= 993) {
             setSliderValues({
@@ -50,10 +50,10 @@ export default function Equipo(section: TeamSection) {
             });
         } else {
             setSliderValues({
-                OFF1: 23.2,
+                OFF1: 22.2,
                 OFF2: 65.4,
                 OFF3: 124.92,
-                restFrom: 0.346,
+                restFrom: 0.39,
             });
         }
 
@@ -126,9 +126,9 @@ export default function Equipo(section: TeamSection) {
 
     return (
         <section id="equipo" className="pt-blue">
-            <div className="container-fluid p-lat pt-blue">
+            <div className="container-fluid p-lat">
                 <div className="row justify-center">
-                    <div className="w-6/12 text-center">
+                    <div className="w-full md:w-10/12 lg:w-6/12 text-center">
                     {section.headline && (
                         <p className="link text-blue">{section.headline}</p>
                     )}
@@ -136,19 +136,33 @@ export default function Equipo(section: TeamSection) {
                         <h2 className="h1 pt-2">{section.title}</h2>
                     )}
                     </div>
-                    <div className="w-10/12 pt-red">
+                    <div className="w-full lg:w-10/12 pt-red">
                         <div className="pt-red border border-gray pt-red pb-red">
                             <Swiper
                                 modules={[Navigation]}
-                                spaceBetween={30}
+                                
                                 speed={800}
-                                slidesPerView={3.32}
+                               
                                 centeredSlides={true}
                                 watchSlidesProgress
                                 loop={true}
                                 navigation={{
                                     nextEl: nextRef.current!,
                                     prevEl: prevRef.current!,
+                                }}
+                                breakpoints={{
+                                    0: {
+                                        slidesPerView: 1.21,
+                                        spaceBetween: 20,
+                                    },
+                                    768: {
+                                        spaceBetween: 20,
+                                        slidesPerView: 2.45,
+                                    },
+                                    993: {
+                                        spaceBetween: 30,
+                                        slidesPerView: 3.32
+                                    }
                                 }}
                                 style={{
                                     ["--swiper-wrapper-transition-timing-function" as string]:
@@ -170,8 +184,12 @@ export default function Equipo(section: TeamSection) {
                             >
                                 {section?.team?.map((member, index) => (
                                     <SwiperSlide key={member._key}>
-                                        <div className={`scale-target transform-gpu will-change-transform team-slide-card p-[10px] border rounded-[20px] ${activeIndex === index ? 'border-gray' : 'border-transparent'}`}>
-                                            <ImageComponent image={member.image} optionalAlt={member.name} sizes="50vw" classContainer="rounded-[15px] overflow-hidden" />
+                                        <div className={`scale-target relative transform-gpu will-change-transform team-slide-card p-[10px] border rounded-[20px] ${activeIndex === index ? 'border-gray' : 'border-transparent'}`}>
+                                            <ImageComponent image={member.image} optionalAlt={member.name} sizes="(min-width: 768px) 50vw, 100vw" classContainer="rounded-[15px] overflow-hidden" />
+                                            <div className={`absolute bottom-0 left-0 w-full p-[30px] transition-opacity ${activeIndex === index ? 'opacity-100' : 'opacity-0'}`}>
+                                                <p className="text-white link">{member.role}</p>
+                                                <p className="text-white h2">{member.name}</p>
+                                            </div>
                                         </div>
                                     </SwiperSlide>
                                 ))}
