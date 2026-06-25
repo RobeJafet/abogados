@@ -29,7 +29,7 @@ export default function Servicios(section: ServiciosSection) {
                                         <p className="h2 lg:hidden">{servicio.title}</p>
                                         <p className="pt-4 md:pt-6 lg:pt-24 text-center md:text-left lg:text-center mt-auto lg:mt-0">{servicio.description}</p>
                                         <div className="pt-yellow flex justify-center md:justify-start lg:justify-center lg:mt-auto">
-                                            <LinkComponent {...servicio.link} className="link text-blue">
+                                            <LinkComponent {...servicio.link} className="link text-blue link-cta">
                                                 {servicio.link.label}
                                             </LinkComponent>
                                         </div>

@@ -11,7 +11,7 @@ export default function CTASection(section: CTASectionType) {
                 <div className="row justify-center lg:justify-start gap-y-[15px]  md:gap-y-[30px]">
                     {section.items.map((item) => (
                         <div  key={item._key} className='w-1/2 md:w-5/12 lg:w-1/3 '>
-                            <LinkComponent {...item.cta} className="p-[10px] md:p-[15px] lg:p-[20px] border border-gray rounded-[20px] flex flex-col lg:flex-row gap-[15px] items-start relative">
+                            <LinkComponent {...item.cta} className="p-[10px] md:p-[15px] lg:p-[20px] border border-gray rounded-[20px] flex flex-col lg:flex-row gap-[15px] items-start relative h-full">
                                 {item.image && (
                                     <ImageComponent 
                                     image={item.image} 
